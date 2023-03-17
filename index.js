@@ -98,7 +98,9 @@ while (eligioOpcion === false) {
             let pokemonAgregado = prompt("ingrese los datos del pokemon que quiere agregar")
             alert(`en desarrollo para agregar a ${pokemonAgregado}`)
         }
-    } 
+    } else{
+        requerimientoUsuario = parseInt(prompt("Digite (1. Informacion de un pokemon | 2. Agregar un pokemon)"))
+    }
 }
 
 
