@@ -1,78 +1,105 @@
-// Se crear las variables
-let nombreUsuario;
-let producto;
-let cuotas;
-let precio;
-let precioFinal;
-
-
-//Primera funcion para saludar al usuario y obtener su nombre por consola
-function saludoPredeterminado (){
-    nombreUsuario = prompt("Hola, cual es tu nombre?").toLowerCase()
-    alert (`Bienvenido/a a DeTodoGamer ${nombreUsuario}`)
-    //Se concatena utilizando template literals
-    console.log(nombreUsuario)
-}
-//Funcion de los productos a elegir
-function productoElegido (){
-    producto = prompt ("Seleccione el producto que quiere adquirir (ps4 , ps5, pc gamer)").toLowerCase()
-switch (producto) {
-    case "ps4":
-        precio = 30000
-        break;
-        case "ps5":
-            precio = 100000
-            break;
-            case "pcgamer":
-                precio = 300000
-                break;
-
-    default:
-        alert("no hay eso")
-        break;
-}
-}
-
-//Funcion de las cuotas elejidas
-function cuotasElegidas(){
-    cuotas = parseInt(prompt("En cuantas cuotas desea pagarlo? (3, 6, 12)"))
-    switch (cuotas) {
-        case 3:
-        precioFinal = precio * 1.2
-            break;
-
-        case 6:
-            precioFinal = precio * 1.35
-            break;
-
-        case 12:
-        precioFinal = precio * 1.5
-        break;
-        default:
-            alert("seleccione una cuota disponible")
-            break;
+const pokemon = [
+    {
+        nombre: "bulbasaur",
+        tipo: ["planta", " veneno"],
+        debilidad: ["fuego", " psiquico", " volador", " hielo"],
+        id: "0001",
+    },
+    {
+        nombre: "ivysaur",
+        tipo: ["planta", "veneno"],
+        debilidad: ["fuego", " psiquico", " volador", " hielo"],
+        id: "0002",
+    },
+    {
+        nombre: "venusaur",
+        tipo: ["planta", " veneno"],
+        debilidad: ["fuego", " psiquico", " volador", " hielo"],
+        id: "0003",
+    },
+    {
+        nombre: "charmander",
+        tipo: ["fuego"],
+        debilidad: ["agua", " tierra", " roca"],
+        id: "0004",
+    },
+    {
+        nombre: "charmeleon",
+        tipo: ["fuego"],
+        debilidad: ["agua", " tierra", " roca"],
+        id: "0005",
+    },
+    {
+        nombre: "charizard",
+        tipo: ["fuego", "volador"],
+        debilidad: ["agua", " electrico", " roca"],
+        id: "0006",
+    },
+    {
+        nombre: "squirtle",
+        tipo: ["agua"],
+        debilidad: ["planta", " electrico"],
+        id: "0007",
+    },
+    {
+        nombre: "wartortle",
+        tipo: ["agua"],
+        debilidad: ["planta", " electrico"],
+        id: "0008",
+    },
+    {
+        nombre: "blastoise",
+        tipo: ["agua"],
+        debilidad: ["planta", " electrico"],
+        id: "0009",
+    },
+    {
+        nombre: "pikachu",
+        tipo: ["electrico"],
+        debilidad: ["tierra"],
+        id: "0025",
+        descrip: "Cuando se enfada, este Pokémon descarga la energía que almacena en el interior de las bolsas de las mejillas."
     }
+];
+
+
+alert("Bienvenido a tu PokeDex");
+let requerimientoUsuario = parseInt(prompt("Digite el numero de lo que requieres (1. Informacion de un pokemon | 2. Agregar un pokemon)"))
+
+let eligioOpcion = false;
+let eleccion;
+
+while (eligioOpcion === false) {
+    if (requerimientoUsuario === 1) {
+        eligioOpcion = true
+        eleccion = "Informacion de un pokemon"
+        let eligioPokemon = false
+        while (eligioPokemon === false) {
+            if (eleccion === "Informacion de un pokemon") {
+                eligioPokemon = true
+                let pokemonSolicitado = prompt("ingrese el nombre de pokemon que desea buscar")
+                const buscarPokemon = pokemon.find(p => p.nombre === pokemonSolicitado)
+
+                if (buscarPokemon) {
+                    alert(`Nombre: ${buscarPokemon.nombre} \nDebilidad: ${buscarPokemon.debilidad} \nTipo: ${buscarPokemon.tipo} \nDescripcion: ${buscarPokemon.descrip}`)
+                } else {
+                    alert("No has encontrado a ese pokemon todavia, ingresa otro")
+                    eligioPokemon = false
+                }
+            }
+        }
+    } else if (requerimientoUsuario === 2) {
+        eligioOpcion = true
+        eleccion = "Agregar un pokemon"
+
+        let agregaPokemon = false
+        while (agregaPokemon === false) {
+            agregaPokemon = true
+            let pokemonAgregado = prompt("ingrese los datos del pokemon que quiere agregar")
+            alert(`en desarrollo para agregar a ${pokemonAgregado}`)
+        }
+    } 
 }
-//Funcion que mustra al usuario el precio final del producto
-function valorFinal(){
-    alert(`El precio final es ${precioFinal }`)
-console.log(precioFinal)
-}
-
-//Se ejecutan las funciones
-saludoPredeterminado()
-productoElegido ()
-cuotasElegidas()
-valorFinal()
-
-
-
-
-
-
-
-
-
 
 
 
