@@ -1,4 +1,4 @@
-const pokemon = [
+let pokemon = [
     {
         nombre: "bulbasaur",
         tipo: ["planta", " veneno"],
@@ -62,46 +62,72 @@ const pokemon = [
     }
 ];
 
+console.log(pokemon);
 
 alert("Bienvenido a tu PokeDex");
-let requerimientoUsuario = parseInt(prompt("Digite el numero de lo que requieres (1. Informacion de un pokemon | 2. Agregar un pokemon)"))
+let requerimientoUsuario = parseInt(prompt("Digite el numero de lo que requieres (1. Informacion de un pokemon | 2. Agregar un pokemon | 3. Salir del simulador)"))
 
-let eligioOpcion = false;
-let eleccion;
 
-while (eligioOpcion === false) {
-    if (requerimientoUsuario === 1) {
-        eligioOpcion = true
-        eleccion = "Informacion de un pokemon"
-        let eligioPokemon = false
-        while (eligioPokemon === false) {
-            if (eleccion === "Informacion de un pokemon") {
-                eligioPokemon = true
-                let pokemonSolicitado = prompt("ingrese el nombre de pokemon que desea buscar")
-                const buscarPokemon = pokemon.find(p => p.nombre === pokemonSolicitado)
-
-                if (buscarPokemon) {
-                    alert(`Nombre: ${buscarPokemon.nombre} \nDebilidad: ${buscarPokemon.debilidad} \nTipo: ${buscarPokemon.tipo} \nDescripcion: ${buscarPokemon.descrip}`)
-                } else {
-                    alert("No has encontrado a ese pokemon todavia, ingresa otro")
-                    eligioPokemon = false
-                }
-            }
+/*---------------------------------------------------------------FUNCION PARA BUSCAR POKEMON--------------------------------------------- */
+function pokemonInformation() {
+    let eligioPokemon = false
+    while (!eligioPokemon) {
+        eligioPokemon = true
+        let pokemonSolicitado = prompt("ingrese el nombre de pokemon que desea buscar").toLocaleLowerCase()
+        const buscarPokemon = pokemon.find(p => p.nombre === pokemonSolicitado)
+        if (buscarPokemon) {
+            alert(`Nombre: ${buscarPokemon.nombre} \nDebilidad: ${buscarPokemon.debilidad} \nTipo: ${buscarPokemon.tipo} \nDescripcion: ${buscarPokemon.descrip}`)
+            requerimientoUsuario = 3
+        } else {
+            requerimientoUsuario = prompt("No has encontrado a ese pokemon todavia, ingresa otro").toLocaleLowerCase()
+            eligioPokemon = false
         }
-    } else if (requerimientoUsuario === 2) {
-        eligioOpcion = true
-        eleccion = "Agregar un pokemon"
-
-        let agregaPokemon = false
-        while (agregaPokemon === false) {
-            agregaPokemon = true
-            let pokemonAgregado = prompt("ingrese los datos del pokemon que quiere agregar")
-            alert(`en desarrollo para agregar a ${pokemonAgregado}`)
-        }
-    } else{
-        requerimientoUsuario = parseInt(prompt("Digite (1. Informacion de un pokemon | 2. Agregar un pokemon)"))
     }
 }
+/*---------------------------------------------------------------FUNCION PARA AGREGAR POKEMON--------------------------------------------- */
+function pokemonAdd() {
+    let pokemonName= prompt ("Ingrese el nombre del pokemon que quieres agregar")
+    let pokemonType= prompt ("Ingrese el tipo del pokemon que quieres agregar")
+    let pokemonWeakness = prompt ("Ingrese la debilidad del pokemon que quieres agregar")
+    let pokemonDesc = prompt ("Ingrese la descripcion del pokemon que quieres agregar")
+    
+    let pokemonObj = {
+        nombre: pokemonName,
+        tipo: [pokemonType],
+        debilidad:[pokemonWeakness],
+        descrip: pokemonDesc
+    }
+    pokemon.push(pokemonObj)  
+    requerimientoUsuario = parseInt(prompt("Digite el numero de lo que requieres (1. Informacion de un pokemon | 2. Agregar un pokemon | 3. Salir del simuladors)"))
+}
+
+function endPokedex() {
+    requerimientoUsuario = 3    
+}
+
+while(requerimientoUsuario != 3){
+    switch (requerimientoUsuario) {
+        case 1:
+            pokemonInformation()
+            break;
+            case 2:
+                pokemonAdd()
+                break;
+                case 3:
+                    endPokedex()
+                    break;
+                default:
+                    requerimientoUsuario = parseInt(prompt("(1. Informacion de un pokemon | 2. Agregar un pokemon | 3. Salir del simulador)"))
+                    break;
+                }
+            }
+
+            console.log(pokemon);
+            console.log(requerimientoUsuario);
+            
+
+
+
 
 
 
