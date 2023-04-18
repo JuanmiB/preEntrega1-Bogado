@@ -13,7 +13,7 @@ buscarPokemons.addEventListener("click", () => {
     contenedor.appendChild(template.content)
 
     const btnBuscar = document.querySelector("#busqueda")
-    btnBuscar.addEventListener("click", findPokemon)    
+    btnBuscar.addEventListener("click", findPokemon)
 })
 
 //Funcion asincrona de la api
@@ -32,6 +32,7 @@ let arrayName = []
 
 const findPokemon = async () => {
     let input = document.querySelector(".barraBuscar").value
+    const lista = document.getElementById("lista")
     if (arrayName.includes(`${input}`)) {
         const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${input}`)
         const datos = await resp.json()
@@ -43,17 +44,26 @@ const findPokemon = async () => {
 
         let name = datos.name
         let id = datos.id
-        // let type = type.types
+        let type = datos.types.map((pokemon) => {
+
+            return pokemon.type.name
+        })
         let baseExp = datos.base_experience
 
-        const lista = document.getElementById("lista")
-        lista.innerHTML = 
-        `<h2>Nombre: ${name}</h2> 
+        console.log(type);
+
+
+
+        lista.innerHTML =
+            `<h2>Nombre: ${name}</h2> 
         <h2>N° Id: ${id}</h2> 
-        <h2>Experiencia base: ${baseExp}</h2>`
+        <h2>Experiencia base: ${baseExp}</h2>
+        <h2>Tipo: ${type}</h2>`
 
     } else {
-        alert('El valor de entrada no coincide con la información guardada. Intente nuevamente.')
+        let img = document.getElementById("pantalla")
+        img.setAttribute("src", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Nuvola_apps_error.svg/1200px-Nuvola_apps_error.svg.png")
+        lista.innerHTML = "<h1>No se encontro pokemon, intente nuevamente</h1>"
     }
 }
 

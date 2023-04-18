@@ -5,7 +5,10 @@
 }
 
 body {
-    background-image: url("images.jpg");
+    background-image: url("./img/pk.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 main {
@@ -66,12 +69,12 @@ h1 {
     color: white;
 }
 
-.screen {
+/* .screen {
     width: 200px;
     height: 200px;
     background-color: black;
     margin: 50px;
-}
+} */
 
 .search-container {
     display: flex;
@@ -107,5 +110,6 @@ footer {
 #pantalla{
     width: 200px;
     height: 200px;
+    margin: 50px;
     
 }
