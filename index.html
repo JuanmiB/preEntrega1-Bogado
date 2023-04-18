@@ -14,7 +14,9 @@
         </header>
         <div class="container" id="contenedor">
             <div class="pokedex">
-                <div class="screen"></div>
+                <div class="screen">
+                    <img src="" alt="" id="pantalla">
+                </div>
                 <div class="btn">
                     <button class="prev">Prev</button>
                     <button class="add">+</button>
@@ -26,12 +28,7 @@
             </div>
 
             
-            
-            
-            
-            
-            
-            
+        
             <template id="tapa-pokedex">
                 <div class="pokedex">
                     <form method="post" name="Aceptar">
@@ -39,14 +36,20 @@
                     <input type="text" class="barraBuscar">
                         <input id="busqueda" type="button"  value="Buscar">
                     </form>
+                    <div class="info">
+                        <ul id="lista">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        </ul>
+                    </div>
                 </div>
             </template>
         </div>
     </main>
-    <footer>
-        <p>© 2023 Pokémon Company. All rights reserved.</p>
-    </footer>
+
 </body>
-<script src="main.js"></script>
+<script src="script.js"></script>
 
 </html>

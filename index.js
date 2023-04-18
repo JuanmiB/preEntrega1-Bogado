@@ -1,135 +1,59 @@
-let pokemon = [
-    {
-        nombre: "bulbasaur",
-        tipo: ["planta", " veneno"],
-        debilidad: ["fuego", " psiquico", " volador", " hielo"],
-        id: "0001",
-    },
-    {
-        nombre: "ivysaur",
-        tipo: ["planta", "veneno"],
-        debilidad: ["fuego", " psiquico", " volador", " hielo"],
-        id: "0002",
-    },
-    {
-        nombre: "venusaur",
-        tipo: ["planta", " veneno"],
-        debilidad: ["fuego", " psiquico", " volador", " hielo"],
-        id: "0003",
-    },
-    {
-        nombre: "charmander",
-        tipo: ["fuego"],
-        debilidad: ["agua", " tierra", " roca"],
-        id: "0004",
-    },
-    {
-        nombre: "charmeleon",
-        tipo: ["fuego"],
-        debilidad: ["agua", " tierra", " roca"],
-        id: "0005",
-    },
-    {
-        nombre: "charizard",
-        tipo: ["fuego", "volador"],
-        debilidad: ["agua", " electrico", " roca"],
-        id: "0006",
-    },
-    {
-        nombre: "squirtle",
-        tipo: ["agua"],
-        debilidad: ["planta", " electrico"],
-        id: "0007",
-    },
-    {
-        nombre: "wartortle",
-        tipo: ["agua"],
-        debilidad: ["planta", " electrico"],
-        id: "0008",
-    },
-    {
-        nombre: "blastoise",
-        tipo: ["agua"],
-        debilidad: ["planta", " electrico"],
-        id: "0009",
-    },
-    {
-        nombre: "pikachu",
-        tipo: ["electrico"],
-        debilidad: ["tierra"],
-        id: "0025",
-        descrip: "Cuando se enfada, este Pokémon descarga la energía que almacena en el interior de las bolsas de las mejillas."
-    }
-];
+const template = document.querySelector("#tapa-pokedex")
+// const contenedor = document.querySelector("#contenedor")
 
-console.log(pokemon);
+document.addEventListener("DOMContentLoaded", () => {
+    fetchApi()
+})
 
-alert("Bienvenido a tu PokeDex");
-let requerimientoUsuario = parseInt(prompt("Digite el numero de lo que requieres (1. Informacion de un pokemon | 2. Agregar un pokemon | 3. Salir del simulador)"))
-
-
-/*---------------------------------------------------------------FUNCION PARA BUSCAR POKEMON--------------------------------------------- */
-function pokemonInformation() {
-    let eligioPokemon = false
-    while (!eligioPokemon) {
-        eligioPokemon = true
-        let pokemonSolicitado = prompt("ingrese el nombre de pokemon que desea buscar").toLocaleLowerCase()
-        const buscarPokemon = pokemon.find(p => p.nombre === pokemonSolicitado)
-        if (buscarPokemon) {
-            alert(`Nombre: ${buscarPokemon.nombre} \nDebilidad: ${buscarPokemon.debilidad} \nTipo: ${buscarPokemon.tipo} \nDescripcion: ${buscarPokemon.descrip}`)
-            requerimientoUsuario = 3
-        } else {
-            requerimientoUsuario = prompt("No has encontrado a ese pokemon todavia, ingresa otro").toLocaleLowerCase()
-            eligioPokemon = false
-        }
-    }
-}
-/*---------------------------------------------------------------FUNCION PARA AGREGAR POKEMON--------------------------------------------- */
-function pokemonAdd() {
-    let pokemonName= prompt ("Ingrese el nombre del pokemon que quieres agregar")
-    let pokemonType= prompt ("Ingrese el tipo del pokemon que quieres agregar")
-    let pokemonWeakness = prompt ("Ingrese la debilidad del pokemon que quieres agregar")
-    let pokemonDesc = prompt ("Ingrese la descripcion del pokemon que quieres agregar")
+buscarPokemons.addEventListener("click", () => {
+    contenedor.appendChild(template.content.cloneNode(true))
+    const btnBuscar = document.querySelector("#busqueda")
+    btnBuscar.addEventListener("click", findPokemon)
     
-    let pokemonObj = {
-        nombre: pokemonName,
-        tipo: [pokemonType],
-        debilidad:[pokemonWeakness],
-        descrip: pokemonDesc
+})
+
+
+const fetchApi = async () => {
+    try {
+        const resp = await fetch("https://pokeapi.co/api/v2/pokemon/")
+        const datos = await resp.json()
+        arrayName = datos.results.map(n => n.name)
+        console.log(datos);
+        console.log(arrayName);
+    } catch (error) {
+        console.log(error);
     }
-    pokemon.push(pokemonObj)  
-    requerimientoUsuario = parseInt(prompt("Digite el numero de lo que requieres (1. Informacion de un pokemon | 2. Agregar un pokemon | 3. Salir del simuladors)"))
 }
 
-function endPokedex() {
-    requerimientoUsuario = 3    
+let encontroPokemon = false
+// let arrayName = []
+
+const findPokemon = async () => {
+    let input = document.querySelector(".barraBuscar").value
+    if (arrayName.includes(`${input}`)) {
+        const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${input}`)
+        const datos = await resp.json()
+        console.log(datos);
+        let linkImg = datos.sprites.front_default
+        let img = document.getElementById("pantalla")
+        img.setAttribute("src", linkImg)
+        encontroPokemon = true
+        let id = datos.id
+        let nombre = datos.name
+        let type = datos.types
+        console.log(id, nombre, type);
+    } else {
+        alert('El valor de entrada no coincide con la información guardada. Intente nuevamente.')
+    }
+    
+    return input
 }
 
-while(requerimientoUsuario != 3){
-    switch (requerimientoUsuario) {
-        case 1:
-            pokemonInformation()
-            break;
-            case 2:
-                pokemonAdd()
-                break;
-                case 3:
-                    endPokedex()
-                    break;
-                default:
-                    requerimientoUsuario = parseInt(prompt("(1. Informacion de un pokemon | 2. Agregar un pokemon | 3. Salir del simulador)"))
-                    break;
-                }
-            }
+const infoPoke = async()=>{
+    const lista = document.getElementById("lista")
+lista.innerHTML = `<h2>${input}</h2> <h2>holas</h2> <h2>holas</h2> <h2>holas</h2>`
 
-            console.log(pokemon);
-            console.log(requerimientoUsuario);
-            
-
-
-
-
-
+}
 
 
 
